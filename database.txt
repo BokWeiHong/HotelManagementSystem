@@ -1,0 +1,57 @@
+create database hotelmanagementsystem;
+
+show databases;
+
+use hotelmanagementsystem;
+
+
+// Table review
+CREATE TABLE review (
+    customer_number VARCHAR(10),
+    room_number VARCHAR(10),
+    rating VARCHAR(1),
+    comment VARCHAR(200)
+);     
+
+INSERT INTO review (room_number, customer_number, rating, comment)
+VALUES
+  ('101', '123456789', '5', 'Excellent service!'),
+  ('102', '987654321', '4', 'Good experience.'),
+  ('103', '654321987', '3', 'Average stay.'),
+  ('104', '321654987', '2', 'Below expectations.'),
+  ('105', '111222333', '1', 'Terrible service!'),
+  ('106', '444555666', '5', 'Outstanding.'),
+  ('107', '777888999', '4', 'Satisfied overall.'),
+  ('108', '888999000', '3', 'Could be better.'),
+  ('109', '999000111', '2', 'Disappointing stay.'),
+  ('110', '222333444', '1', 'Awful experience.'),
+  ('101', '123456789', '5', 'Great service!'),
+  ('102', '987654321', '4', 'Enjoyed my stay.'),
+  ('103', '654321987', '3', 'Okay, but not great.'),
+  ('104', '321654987', '2', 'Unpleasant experience.'),
+  ('105', '111222333', '1', 'Worst stay ever!'),
+  ('106', '444555666', '5', 'Highly recommended.'),
+  ('107', '777888999', '4', 'Good value for money.'),
+  ('108', '888999000', '3', 'Needs improvement.'),
+  ('109', '999000111', '2', 'Not satisfied.'),
+  ('110', '222333444', '1', 'Regret staying here.'),
+  ('103', '444555666', '5', 'Outstanding.'),
+  ('108', '123456789', '4', 'Good experience.'),
+  ('105', '654321987', '3', 'Average stay.'),
+  ('109', '987654321', '2', 'Unpleasant experience.'),
+  ('106', '111222333', '1', 'Worst stay ever!'),
+  ('107', '777888999', '5', 'Great service!'),
+  ('110', '321654987', '4', 'Enjoyed my stay.'),
+  ('101', '999000111', '3', 'Okay, but not great.'),
+  ('104', '222333444', '2', 'Disappointing stay.'),
+  ('102', '888999000', '1', 'Terrible service!'),
+  ('105', '111222333', '5', 'Excellent service!'),
+  ('101', '987654321', '4', 'Regret staying here.'),
+  ('103', '444555666', '3', 'Highly recommended.'),
+  ('108', '123456789', '2', 'Below expectations.'),
+  ('109', '654321987', '1', 'Could be better.'),
+  ('110', '777888999', '5', 'Absolutely wonderful!'),
+  ('106', '888999000', '4', 'Satisfied overall.'),
+  ('107', '321654987', '3', 'Needs improvement.'),
+  ('104', '999000111', '2', 'Not satisfied.'),
+  ('102', '222333444', '1', 'Awful experience.');                                                                                                                                                                                                                                        
