@@ -6,38 +6,29 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
 public class Department extends JFrame {
-	Connection conn = null;
-	private JPanel contentPane;
-	private JTable table;
-	private JLabel label1, label2, label3;
+	JPanel contentPane;
+	JTable table;
+	JLabel label1, label2;
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Department frame = new Department();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		EventQueue.invokeLater(() -> {
+            try {
+                Department frame = new Department();
+                frame.setVisible(true);
+            } catch (Exception ignored) {}
+        });
 	}
 
-	public void close() {
-		this.dispose();
-	}
-
-	public Department() throws SQLException {
-		//setup the GUI
+	public Department() {
+		// setup the GUI
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(600, 200, 900, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -52,7 +43,7 @@ public class Department extends JFrame {
 		table.setFont(tableFont);
 		contentPane.add(table);
 
-		//add action button for load data
+		// add action button for load data
 		JButton buttonLoad = new JButton("Load Data");
 		buttonLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,9 +52,7 @@ public class Department extends JFrame {
 					String displayCustomersql = "select * from Department";
 					ResultSet rs = c.s.executeQuery(displayCustomersql);
 					table.setModel(DbUtils.resultSetToTableModel(rs));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				} catch (Exception ignored) {}
 			}
 		});
 		buttonLoad.setBounds(190, 500, 120, 30);
@@ -87,7 +76,6 @@ public class Department extends JFrame {
 		JButton buttonExit = new JButton("Back");
 		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Reception().setVisible(true);
 				setVisible(false);
 			}
 		});
@@ -148,13 +136,12 @@ public class Department extends JFrame {
 			}
 
 			// Reload the data after saving changes
-			String displayCustomersql = "SELECT * FROM Department";
-			ResultSet rs = c.s.executeQuery(displayCustomersql);
+			String displayDepartmentsql = "SELECT * FROM Department";
+			ResultSet rs = c.s.executeQuery(displayDepartmentsql);
 			table.setModel(DbUtils.resultSetToTableModel(rs));
 
 			JOptionPane.showMessageDialog(this, "Changes saved successfully!");
 		} catch (Exception e) {
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Error saving changes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}

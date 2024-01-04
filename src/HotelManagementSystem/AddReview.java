@@ -13,17 +13,18 @@ public class AddReview extends JFrame implements ActionListener{
     JButton rating1, rating2, rating3, rating4, rating5, check, back;
     Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
     JTextField room, customer, comment;
-
     Border line = BorderFactory.createLineBorder(new Color(0, 0, 0, 0));
     Border empty = new EmptyBorder(5, 10, 5, 10);
     CompoundBorder border = new CompoundBorder(line, empty);
     AddReview() {
+        // set title, default layout, size and application location
         super("BLKT2 Hotel Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(900, 600);
         setLocationRelativeTo(null);
 
+        // add background image
         background01 = new JLabel();
         ImageIcon icon01 = new ImageIcon(ClassLoader.getSystemResource("icons/AddReview01.png"));
         Image getImage01 = icon01.getImage().getScaledInstance(900,600, Image.SCALE_SMOOTH);
@@ -33,6 +34,7 @@ public class AddReview extends JFrame implements ActionListener{
         background01.setOpaque(true);
         background01.setBounds(0,0,900,600);
 
+        // set main title "Add Review" and descriptions
         title = new JLabel("Add Review");
         title.setForeground(Color.WHITE);
         title.setBounds(70,50,350,50);
@@ -51,6 +53,7 @@ public class AddReview extends JFrame implements ActionListener{
         description02.setFont(new Font("SansSerif",Font.BOLD,20));
         background01.add(description02);
 
+        // add text field to enter room number
         room = new JTextField("Room number");
         room.setBounds(150,410,150,45);
         room.setForeground(Color.DARK_GRAY);
@@ -58,6 +61,7 @@ public class AddReview extends JFrame implements ActionListener{
         room.setBorder(border);
         background01.add(room);
 
+        // add text field to enter customer ID
         customer = new JTextField("Customer ID");
         customer.setBounds(320,410,150,45);
         customer.setForeground(Color.DARK_GRAY);
@@ -65,6 +69,7 @@ public class AddReview extends JFrame implements ActionListener{
         customer.setBorder(border);
         background01.add(customer);
 
+        // add button to check whether the room number and customer ID is correct
         check = new JButton("Check");
         check.setBounds(550,420,100,30);
         check.setFont(new Font("SansSerif",Font.PLAIN,15));
@@ -75,6 +80,7 @@ public class AddReview extends JFrame implements ActionListener{
         check.setBorder(null);
         check.setCursor(customCursor);
         background01.add(check);
+        // add mouse hover effect for the button
         check.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -87,6 +93,7 @@ public class AddReview extends JFrame implements ActionListener{
             }
         });
 
+        // add button to return back to reception page
         back = new JButton("Back");
         back.setBounds(700,420,100,30);
         back.setFont(new Font("SansSerif",Font.PLAIN,15));
@@ -96,6 +103,8 @@ public class AddReview extends JFrame implements ActionListener{
         back.setBorder(null);
         back.setCursor(customCursor);
         background01.add(back);
+
+        // add mouse hover effect for the button
         back.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -110,18 +119,19 @@ public class AddReview extends JFrame implements ActionListener{
 
         back.addActionListener(ae -> {
             try{
-                new Reception().setVisible(true);
                 setVisible(false);
 
             }catch(Exception ignored){}
         });
 
+        // add information text to specify the process
         title = new JLabel("** Check the room number and customer ID before updating the review **");
         title.setForeground(Color.WHITE);
         title.setBounds(250,480,550,50);
         title.setFont(new Font("SansSerif",Font.BOLD,10));
         background01.add(title);
 
+        // add a panel to input customer review
         panel01 = new JLabel();
         panel01.setBounds(500, 150, 350, 200);
         panel01.setBackground(new Color(255, 255, 255, 224));
@@ -140,6 +150,7 @@ public class AddReview extends JFrame implements ActionListener{
         text.setFont(new Font("SansSerif", Font.PLAIN, 16));
         panel01.add(text);
 
+        // add 5 buttons which represent the review score (1 - 5)
         rating1 = new JButton("1");
         rating1.setBounds(50,120,50,30);
         rating1.setFont(new Font("SansSerif",Font.BOLD,12));
@@ -151,6 +162,7 @@ public class AddReview extends JFrame implements ActionListener{
         rating1.addActionListener(this);
         rating1.setCursor(customCursor);
         panel01.add(rating1);
+        // add mouse hover effect for the button
         rating1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -174,6 +186,7 @@ public class AddReview extends JFrame implements ActionListener{
         rating2.addActionListener(this);
         rating2.setCursor(customCursor);
         panel01.add(rating2);
+        // add mouse hover effect for the button
         rating2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -199,6 +212,7 @@ public class AddReview extends JFrame implements ActionListener{
         rating3.addActionListener(this);
         rating3.setCursor(customCursor);
         panel01.add(rating3);
+        // add mouse hover effect for the button
         rating3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -226,6 +240,7 @@ public class AddReview extends JFrame implements ActionListener{
         rating4.addActionListener(this);
         rating4.setCursor(customCursor);
         panel01.add(rating4);
+        // add mouse hover effect for the button
         rating4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -255,6 +270,7 @@ public class AddReview extends JFrame implements ActionListener{
         rating5.addActionListener(this);
         rating5.setCursor(customCursor);
         panel01.add(rating5);
+        // add mouse hover effect for the button
         rating5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -262,7 +278,7 @@ public class AddReview extends JFrame implements ActionListener{
                 rating2.setBackground(new Color(255, 87, 28));
                 rating3.setBackground(new Color(255, 210, 28));
                 rating4.setBackground(new Color(114, 255, 38));
-                rating5.setBackground(new Color(38, 255, 222));
+                rating5.setBackground(new Color(18, 162, 9));
             }
 
             @Override
@@ -287,6 +303,7 @@ public class AddReview extends JFrame implements ActionListener{
         text.setFont(new Font("SansSerif", Font.PLAIN, 10));
         panel01.add(text);
 
+        // add panel to input customers' comments
         panel02 = new JLabel();
         panel02.setBounds(50, 150, 350, 200);
         panel02.setBackground(new Color(255, 255, 255, 224));
@@ -328,20 +345,28 @@ public class AddReview extends JFrame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent action){
+        // check button for customer ID and room number
         if(action.getSource()==check){
             try{
+                // call and connect to mysql
                 conn c1 = new conn();
+                // get the text from the text fields
                 String c = customer.getText();
                 String r = room.getText();
 
+                // check the customer ID based on the mysql database
+                // return true if it exists, false if dose not
                 String statement1 = "SELECT * FROM customer WHERE number='"+c+"'";
                 ResultSet rs1 = c1.s.executeQuery(statement1);
                 boolean customerExists = rs1.next();
 
+                // check the room number based on the mysql database
+                // return true if it exists, false if dose not
                 String statement2 = "SELECT * FROM room WHERE roomnumber='"+r+"'";
                 ResultSet rs2 = c1.s.executeQuery(statement2);
                 boolean roomExists = rs2.next();
 
+                // enable the rating buttons if both exist and show message dialogs to inform the errors
                 if(customerExists && roomExists){
                     rating1.setEnabled(true);
                     rating2.setEnabled(true);
@@ -359,11 +384,10 @@ public class AddReview extends JFrame implements ActionListener{
                 }else{
                     JOptionPane.showMessageDialog(null, "Invalid room and customer");
                 }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         }
 
+        // insert 1 star review and comment into database
         if(action.getSource()==rating1){
             try{
                 conn c1 = new conn();
@@ -372,8 +396,8 @@ public class AddReview extends JFrame implements ActionListener{
                 String t = comment.getText();
                 int review = 1;
 
-                String statement = "INSERT INTO review VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
-                c1.s.executeUpdate(statement);
+                String statement3 = "INSERT INTO review(customer_number, room_number, rating, comment) VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
+                c1.s.executeUpdate(statement3);
 
                 JOptionPane.showMessageDialog(null, "Review Added Successfully");
 
@@ -384,10 +408,9 @@ public class AddReview extends JFrame implements ActionListener{
                 rating5.setEnabled(false);
                 customer.setEditable(true);
                 room.setEditable(true);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         } else if(action.getSource()==rating2){
+            // insert 2 star review and comment into database
             try{
                 conn c1 = new conn();
                 String c = customer.getText();
@@ -395,8 +418,8 @@ public class AddReview extends JFrame implements ActionListener{
                 String t = comment.getText();
                 int review = 2;
 
-                String statement = "INSERT INTO review VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
-                c1.s.executeUpdate(statement);
+                String statement4 = "INSERT INTO review(customer_number, room_number, rating, comment) VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
+                c1.s.executeUpdate(statement4);
 
                 JOptionPane.showMessageDialog(null, "Review Added Successfully");
 
@@ -407,10 +430,9 @@ public class AddReview extends JFrame implements ActionListener{
                 rating5.setEnabled(false);
                 customer.setEditable(true);
                 room.setEditable(true);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         } else if(action.getSource()==rating3){
+            // insert 3 star review and comment into database
             try{
                 conn c1 = new conn();
                 String c = customer.getText();
@@ -418,8 +440,8 @@ public class AddReview extends JFrame implements ActionListener{
                 String t = comment.getText();
                 int review = 3;
 
-                String statement = "INSERT INTO review VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
-                c1.s.executeUpdate(statement);
+                String statement5 = "INSERT INTO review(customer_number, room_number, rating, comment) VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
+                c1.s.executeUpdate(statement5);
 
                 JOptionPane.showMessageDialog(null, "Review Added Successfully");
 
@@ -431,10 +453,9 @@ public class AddReview extends JFrame implements ActionListener{
                 customer.setEditable(true);
                 room.setEditable(true);
 
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         } else if(action.getSource()==rating4){
+            // insert 4 star review and comment into database
             try{
                 conn c1 = new conn();
                 String c = customer.getText();
@@ -442,8 +463,8 @@ public class AddReview extends JFrame implements ActionListener{
                 String t = comment.getText();
                 int review = 4;
 
-                String statement = "INSERT INTO review VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
-                c1.s.executeUpdate(statement);
+                String statement6 = "INSERT INTO review(customer_number, room_number, rating, comment) VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
+                c1.s.executeUpdate(statement6);
 
                 JOptionPane.showMessageDialog(null, "Review Added Successfully");
 
@@ -455,10 +476,9 @@ public class AddReview extends JFrame implements ActionListener{
                 customer.setEditable(true);
                 room.setEditable(true);
 
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         } else if(action.getSource()==rating5){
+            // insert 5 star review and comment into database
             try{
                 conn c1 = new conn();
                 String c = customer.getText();
@@ -466,8 +486,8 @@ public class AddReview extends JFrame implements ActionListener{
                 String t = comment.getText();
                 int review = 5;
 
-                String statement = "INSERT INTO review VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
-                c1.s.executeUpdate(statement);
+                String statement7 = "INSERT INTO review(customer_number, room_number, rating, comment) VALUES( '" + c + "', '" + r + "', '" + review + "', '" + t + "')";
+                c1.s.executeUpdate(statement7);
 
                 JOptionPane.showMessageDialog(null, "Review Added Successfully");
 
@@ -479,12 +499,11 @@ public class AddReview extends JFrame implements ActionListener{
                 customer.setEditable(true);
                 room.setEditable(true);
 
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            }catch(Exception ignored){}
         }
     }
 
+    // limit the characters in comment section
     private static void setCharacterLimit(JTextField textField) {
         AbstractDocument document = (AbstractDocument) textField.getDocument();
         document.setDocumentFilter(new DocumentFilter() {

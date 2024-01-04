@@ -1,3 +1,4 @@
+// Import necessary packages and classes
 package HotelManagementSystem;
 
 import java.awt.*;
@@ -17,21 +18,21 @@ public class AddEmployee extends JFrame{ //Third Frame
     // ButtonGroup for grouping RadioButtons
     ButtonGroup BG;
 
-    // Button for confirming employee details
-    JButton Confirm;
+    // Create button
+    JButton Submit, btnBack;
 
     // ComboBox for job selection
     JComboBox CBJob;
 
     // Constructor for AddEmployee class
     public AddEmployee() {
-
+        super("BLKT2 Hotel Management System");
+        setSize(900,600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);
         // Set frame properties
         getContentPane().setBackground(Color.WHITE);
-        setTitle("ADD EMPLOYEE DETAILS");
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setSize(900, 600);
-        getContentPane().setLayout(null);
 
         // Background panel with an image
         JPanel background = new JPanel() {
@@ -126,7 +127,7 @@ public class AddEmployee extends JFrame{ //Third Frame
         Job.setBounds(60, 338, 150, 27);
         add(Job);
 
-        String course[] = {"Choose a job", "Manager", "Accountant", "Front Desk Clerks", "Porters", "Housekeeping", "Room Service", "Waiter/Waitress", "Chef", "Kitchen Staff", "Maintenance Staff",  "Security Officer"};
+        String[] course = {"Choose a job", "Manager", "Accountant", "Front Desk Clerks", "Porters", "Housekeeping", "Room Service", "Waiter/Waitress", "Chef", "Kitchen Staff", "Maintenance Staff",  "Security Officer"};
         CBJob = new JComboBox(course);
         CBJob.setBackground(Color.WHITE);
         CBJob.setBounds(200,338,150,30);
@@ -141,12 +142,22 @@ public class AddEmployee extends JFrame{ //Third Frame
         TFSalary.setBounds(200, 385, 150, 27);
         add(TFSalary);
 
-        // Button for confirming employee details
-        Confirm = new JButton("CONFIRM");
-        Confirm.setBounds(200, 455, 150, 30);
-        Confirm.setBackground(Color.BLACK);
-        Confirm.setForeground(Color.WHITE);
-        add(Confirm);
+        // Button for subnmitting employee details
+        Submit = new JButton("SUBMIT");
+        Submit.setBounds(200, 435, 150, 30);
+        Submit.setBackground(new Color(202, 221, 239,255));
+        Submit.setForeground(Color.BLACK);
+        add(Submit);
+
+        // Back button
+        btnBack = new JButton("BACK");
+        btnBack.addActionListener(e -> {
+            setVisible(false);
+        });
+        btnBack.setBounds(695, 510, 150, 30); // Adjusted bounds
+        btnBack.setBackground(new Color(201, 220, 238,255));
+        btnBack.setForeground(Color.BLACK);
+        add(btnBack);
 
         setVisible(true);
 
@@ -157,96 +168,90 @@ public class AddEmployee extends JFrame{ //Third Frame
         add(AddEmployee);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/AddEmployee02.jpg"));
-        Image i3 = i1.getImage().getScaledInstance(400, 400,Image.SCALE_DEFAULT);
+        Image i3 = i1.getImage().getScaledInstance(400, 300,Image.SCALE_DEFAULT);
         ImageIcon i2 = new ImageIcon(i3);
         JLabel image = new JLabel(i2);
-        image.setBounds(410,80,480,410);
+        image.setBounds(405,55,480,410);
         add(image);
 
-        Confirm.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent ae){
-                String name = TFName.getText();
-                String ic = TFIC.getText();
-                String age = TFAge.getText();
-                String phone = TFPhone.getText();
+        Submit.addActionListener(ae -> {
+            String name = TFName.getText();
+            String ic = TFIC.getText();
+            String age = TFAge.getText();
+            String phone = TFPhone.getText();
 
-                String gender = null;
+            String gender = null;
 
-                if(RBMale.isSelected()){
-                    gender = "Male";
+            if(RBMale.isSelected()){
+                gender = "Male";
 
-                }else if(RBFemale.isSelected()){
-                    gender = "Female";
+            }else if(RBFemale.isSelected()){
+                gender = "Female";
+            }
+
+            String email = TFEmail.getText();
+            String address = TFAddress.getText();
+            String salary = TFSalary.getText();
+            String job = (String)CBJob.getSelectedItem();
+
+            try {
+                conn c = new conn();
+
+                if (name.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (ic.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "IC cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (ic.length() != 12) {
+                    JOptionPane.showMessageDialog(null, "IC must be 12 digits", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (age.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Age cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (age.length()>2) {
+                    JOptionPane.showMessageDialog(null, "Invalid age", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (phone.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Phone number cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (phone.length()<9 || phone.length()>11) {
+                    JOptionPane.showMessageDialog(null, "Invalid phone number", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (!RBMale.isSelected() && !RBFemale.isSelected()) {
+                    JOptionPane.showMessageDialog(null, "Please select a gender", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (email.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Email cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if(!email.contains("@") || !email.contains(".com")){
+                    JOptionPane.showMessageDialog(null, "Invalid email", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (address.equals("")){
+                    JOptionPane.showMessageDialog(null, "Address cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (job.equals("Choose a job")) {
+                    JOptionPane.showMessageDialog(null, "Please choose a job", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else if (salary.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Salary cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    String data = "INSERT INTO employee values( '" + name + "', '" + ic + "', '" + age + "', '" + phone + "','" + gender + "', '" + email + "', '" + address + "','" + job + "', '" + salary + "')";
+
+                    c.s.executeUpdate(data);
+                    JOptionPane.showMessageDialog(null, "Employee Added Successfully");
+                    setVisible(false);
                 }
 
-                String email = TFEmail.getText();
-                String address = TFAddress.getText();
-                String salary = TFSalary.getText();
-                String job = (String)CBJob.getSelectedItem();
-
-                try {
-                    conn c = new conn();
-
-                    if (name.equals("")){
-                        JOptionPane.showMessageDialog(null, "Name cannot be empty");
-                    }
-                    else if (ic.equals("")) {
-                        JOptionPane.showMessageDialog(null, "IC cannot be empty");
-                    }
-                    else if (ic.length() != 12) {
-                        JOptionPane.showMessageDialog(null, "IC must be 12 digits");
-                    }
-                    else if (age.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Age cannot be empty");
-                    }
-                    else if (age.length()>2) {
-                        JOptionPane.showMessageDialog(null, "Invalid age");
-                    }
-                    else if (phone.equals("")) {
-                        JOptionPane.showMessageDialog(null, "Phone number cannot be empty");
-                    }
-                    else if (phone.length()<9 || phone.length()>11) {
-                        JOptionPane.showMessageDialog(null, "Invalid phone number");
-                    }
-                    else if (!RBMale.isSelected() && !RBFemale.isSelected()) {
-                        JOptionPane.showMessageDialog(null, "Please select a gender");
-                    }
-                    else if (email.equals("")){
-                        JOptionPane.showMessageDialog(null, "Email cannot be empty");
-                    }
-                    else if(!email.contains("@") || !email.contains(".com")){
-                        JOptionPane.showMessageDialog(null, "Invalid email");
-                    }
-                    else if (address.equals("")){
-                        JOptionPane.showMessageDialog(null, "Address cannot be empty");
-                    }
-                    else if (job.equals("Choose a job")) {
-                        JOptionPane.showMessageDialog(null, "Please choose a job");
-                    }
-                    else if (salary.equals("")){
-                        JOptionPane.showMessageDialog(null, "Salary cannot be empty");
-                    }
-                    else {
-                        String data = "INSERT INTO employee values( '" + name + "', '" + ic + "', '" + age + "', '" + phone + "','" + gender + "', '" + email + "', '" + address + "','" + job + "', '" + salary + "')";
-
-                        c.s.executeUpdate(data);
-                        JOptionPane.showMessageDialog(null, "Employee Added Successfully");
-                        setVisible(false);
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+            } catch (Exception ignored) {
             }
-    }
         });
 
         setVisible(true);
-        setSize(900,600);
-        setLocation(200,50);
+    }
 
-}
-
-public static void main(String[] args){
+    public static void main(String[] args){
         new AddEmployee();
-}
+    }
 }

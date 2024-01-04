@@ -11,17 +11,19 @@ import java.awt.*;
 public class Reception extends JFrame {
 
 	JLabel background, quote, copyright;
-	JLabel title, customer, room, car, review, logout, addcustomer, managerinfo, customerinfo, searchroom, updateroom, updatecustomer, reviewinfo, addreview, carinfo, pickup;
-	JButton AddCustomer, ManagerInfo, LogOut, CustomerInfo, SearchRoom, UpdateRoom, UpdateCustomer, ReviewInfo, AddReview, CarInfo, PickUp;
+	JLabel title, customer, room, car, review, employee, logout, addcustomer, managerinfo, customerinfo, searchroom, updateroom, updatecustomer, reviewinfo, addreview, carinfo, pickup, checkout;
+	JButton AddCustomer, ManagerInfo, LogOut, Employee, CustomerInfo, SearchRoom, UpdateRoom, UpdateCustomer, ReviewInfo, AddReview, CarInfo, PickUp, CheckOut;
 	Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 	
 	public Reception(){
+		// set title, default layout, size and application location
 		super("BLKT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(900,600);
 		setLocationRelativeTo(null);
 
+		// add background image
 		ImageIcon icon01 = new ImageIcon(ClassLoader.getSystemResource("icons/reception01.png"));
 		Image getImage01 = icon01.getImage().getScaledInstance(900,600, Image.SCALE_DEFAULT);
 		ImageIcon image01 = new ImageIcon(getImage01);
@@ -30,20 +32,50 @@ public class Reception extends JFrame {
 		background.setLayout(null);
 		background.setOpaque(true);
 
+		// add buttons to redirect to the specific files
 		ManagerInfo = new JButton("");
 		ManagerInfo.setBackground(new Color(0, 0, 0, 0));
 		ManagerInfo.setCursor(customCursor);
 		ManagerInfo.setBorder(new LineBorder(Color.WHITE, 2));
 		ManagerInfo.setOpaque(false);
 		ManagerInfo.setLayout(null);
-		ManagerInfo.setBounds(50, 500, 120, 40);
+		ManagerInfo.setBounds(50, 500, 115, 40);
 		background.add(ManagerInfo);
+
+		ManagerInfo.addActionListener(ae -> {
+			try{
+				new ManagerInfoReceptionist().setVisible(true);
+
+			}catch(Exception ignored){}
+		});
 
 		managerinfo = new JLabel("Manager Info");
 		managerinfo.setForeground(Color.WHITE);
 		managerinfo.setFont(new Font("SansSerif", Font.BOLD, 12));
 		managerinfo.setBounds(20, 8, 290, 25);
 		ManagerInfo.add(managerinfo);
+
+		Employee = new JButton("");
+		Employee.setBackground(new Color(0, 0, 0, 0));
+		Employee.setCursor(customCursor);
+		Employee.setBorder(new LineBorder(Color.WHITE, 2));
+		Employee.setOpaque(false);
+		Employee.setLayout(null);
+		Employee.setBounds(190, 500, 95, 40);
+		background.add(Employee);
+
+		Employee.addActionListener(ae -> {
+			try{
+				new EmployeeReceptionist().setVisible(true);
+
+			}catch(Exception ignored){}
+		});
+
+		employee = new JLabel("Employee");
+		employee.setForeground(Color.WHITE);
+		employee.setFont(new Font("SansSerif", Font.BOLD, 12));
+		employee.setBounds(20, 8, 290, 25);
+		Employee.add(employee);
 
 		LogOut = new JButton("");
 		LogOut.setBackground(new Color(0, 0, 0, 0));
@@ -54,15 +86,13 @@ public class Reception extends JFrame {
 		LogOut.setBounds(750, 500, 80, 40);
 		background.add(LogOut);
 
-		LogOut.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new Login().setVisible(true);
-					setVisible(false);
+		LogOut.addActionListener(ae -> {
+            try{
+                new Login().setVisible(true);
+                setVisible(false);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		logout = new JLabel("Logout");
 		logout.setForeground(Color.WHITE);
@@ -91,15 +121,12 @@ public class Reception extends JFrame {
 		AddCustomer.setBounds(50, 120, 150, 40);
 		background.add(AddCustomer);
 
-		AddCustomer.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new NewCustomer().setVisible(true);
-					setVisible(false);
+		AddCustomer.addActionListener(ae -> {
+            try{
+                new NewCustomer().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		addcustomer = new JLabel("Add new Customer");
 		addcustomer.setForeground(Color.WHITE);
@@ -116,15 +143,12 @@ public class Reception extends JFrame {
 		CustomerInfo.setBounds(220, 120, 120, 40);
 		background.add(CustomerInfo);
 
-		CustomerInfo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new CustomerInfo().setVisible(true);
-					setVisible(false);
+		CustomerInfo.addActionListener(ae -> {
+            try{
+                new CustomerInfo().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		customerinfo = new JLabel("Customer Info");
 		customerinfo.setForeground(Color.WHITE);
@@ -141,21 +165,40 @@ public class Reception extends JFrame {
 		UpdateCustomer.setBounds(50, 180, 140, 40);
 		background.add(UpdateCustomer);
 
-		UpdateCustomer.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-//					new UpdateCustomer().setVisible(true);
-					setVisible(false);
+		UpdateCustomer.addActionListener(ae -> {
+            try{
+				new UpdateCheck().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		updatecustomer = new JLabel("Update Customer");
 		updatecustomer.setForeground(Color.WHITE);
 		updatecustomer.setFont(new Font("SansSerif", Font.BOLD, 12));
 		updatecustomer.setBounds(20, 8, 300, 25);
 		UpdateCustomer.add(updatecustomer);
+
+		CheckOut = new JButton("");
+		CheckOut.setBackground(new Color(0, 0, 0, 0));
+		CheckOut.setCursor(customCursor);
+		CheckOut.setBorder(new LineBorder(Color.WHITE, 2));
+		CheckOut.setOpaque(false);
+		CheckOut.setLayout(null);
+		CheckOut.setBounds(210, 180, 100, 40);
+		background.add(CheckOut);
+
+		CheckOut.addActionListener(ae -> {
+			try{
+				new CheckOut().setVisible(true);
+
+			}catch(Exception ignored){}
+		});
+
+		checkout = new JLabel("Checkout");
+		checkout.setForeground(Color.WHITE);
+		checkout.setFont(new Font("SansSerif", Font.BOLD, 12));
+		checkout.setBounds(20, 8, 300, 25);
+		CheckOut.add(checkout);
 
 		room = new JLabel("Room");
 		room.setForeground(Color.WHITE);
@@ -172,15 +215,12 @@ public class Reception extends JFrame {
 		SearchRoom.setBounds(50, 280, 120, 40);
 		background.add(SearchRoom);
 
-		SearchRoom.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new SearchRoom().setVisible(true);
-					setVisible(false);
+		SearchRoom.addActionListener(ae -> {
+            try{
+                new SearchRoom().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		searchroom = new JLabel("Search Room");
 		searchroom.setForeground(Color.WHITE);
@@ -197,15 +237,12 @@ public class Reception extends JFrame {
 		UpdateRoom.setBounds(190, 280, 120, 40);
 		background.add(UpdateRoom);
 
-		UpdateRoom.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new UpdateRoom().setVisible(true);
-					setVisible(false);
+		UpdateRoom.addActionListener(ae -> {
+            try{
+                new UpdateRoom().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		updateroom = new JLabel("Update Room");
 		updateroom.setForeground(Color.WHITE);
@@ -228,15 +265,12 @@ public class Reception extends JFrame {
 		ReviewInfo.setBounds(50, 390, 110, 40);
 		background.add(ReviewInfo);
 
-		ReviewInfo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new ReviewInfo().setVisible(true);
-					setVisible(false);
+		ReviewInfo.addActionListener(ae -> {
+            try{
+                new ReviewInfo().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		reviewinfo = new JLabel("Review Info");
 		reviewinfo.setForeground(Color.WHITE);
@@ -253,15 +287,12 @@ public class Reception extends JFrame {
 		AddReview.setBounds(180, 390, 110, 40);
 		background.add(AddReview);
 
-		AddReview.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new AddReview().setVisible(true);
-					setVisible(false);
+		AddReview.addActionListener(ae -> {
+            try{
+                new AddReview().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		addreview = new JLabel("Add Review");
 		addreview.setForeground(Color.WHITE);
@@ -284,15 +315,12 @@ public class Reception extends JFrame {
 		CarInfo.setBounds(450, 120, 90, 40);
 		background.add(CarInfo);
 
-		CarInfo.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new SearchRoom().setVisible(true);
-					setVisible(false);
+		CarInfo.addActionListener(ae -> {
+            try{
+                new SearchRoom().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
 		carinfo = new JLabel("Car Info");
 		carinfo.setForeground(Color.WHITE);
@@ -306,20 +334,17 @@ public class Reception extends JFrame {
 		PickUp.setBorder(new LineBorder(Color.WHITE, 2));
 		PickUp.setOpaque(false);
 		PickUp.setLayout(null);
-		PickUp.setBounds(560, 120, 80, 40);
+		PickUp.setBounds(560, 120, 90, 40);
 		background.add(PickUp);
 
-		PickUp.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				try{
-					new SearchCar().setVisible(true);
-					setVisible(false);
+		PickUp.addActionListener(ae -> {
+            try{
+                new RentalCar().setVisible(true);
 
-				}catch(Exception ignored){}
-			}
-		});
+            }catch(Exception ignored){}
+        });
 
-		pickup = new JLabel("PickUp");
+		pickup = new JLabel("Rent Car");
 		pickup.setForeground(Color.WHITE);
 		pickup.setFont(new Font("SansSerif", Font.BOLD, 12));
 		pickup.setBounds(20, 8, 300, 25);

@@ -15,12 +15,14 @@ public class Login extends JFrame implements ActionListener{
     Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 
     Login(){
+        // set title, default layout, size and application location
         super("BLKT2 Hotel Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(900,600);
         setLocationRelativeTo(null);
 
+        // add panel to login page
         label1 = new JLabel("");
         label1.setBounds(100,100,700,400);
         label1.setBackground(Color.white);
@@ -46,6 +48,7 @@ public class Login extends JFrame implements ActionListener{
         text3.setFont(new Font("SansSerif",Font.BOLD,8));
         label1.add(text3);
 
+        // add text field for name and password
         name = new JTextField();
         name.setBounds(150,100,150,30);
         label1.add(name);
@@ -54,6 +57,7 @@ public class Login extends JFrame implements ActionListener{
         passwd.setBounds(150,150,150,30);
         label1.add(passwd);
 
+        // add login button
         login = new JButton("Login");
         login.setBounds(50,210,100,30);
         login.setFont(new Font("SansSerif",Font.BOLD,12));
@@ -64,7 +68,7 @@ public class Login extends JFrame implements ActionListener{
         login.setBorder(null);
         login.setCursor(customCursor);
         label1.add(login);
-
+        // add mouse hover effect
         login.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -77,6 +81,7 @@ public class Login extends JFrame implements ActionListener{
             }
         });
 
+        // add cancel button to return back to homepage
         cancel = new JButton("Cancel");
         cancel.setBounds(200,210,100,30);
         cancel.setFont(new Font("SansSerif",Font.BOLD,12));
@@ -87,7 +92,7 @@ public class Login extends JFrame implements ActionListener{
         cancel.addActionListener(this);
         cancel.setCursor(customCursor);
         label1.add(cancel);
-
+        // add mouse hover effect
         cancel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -100,6 +105,7 @@ public class Login extends JFrame implements ActionListener{
             }
         });
 
+        // add panel to insert background
         label2 = new JLabel("");
         ImageIcon icon02 = new ImageIcon(ClassLoader.getSystemResource("icons/login01.jpg"));
         Image getImage02 = icon02.getImage().getScaledInstance(350,400, Image.SCALE_SMOOTH);
@@ -129,10 +135,12 @@ public class Login extends JFrame implements ActionListener{
             String u = name.getText();
             String v = passwd.getText();
 
+            // log into admin page (dashboard)
             if(Objects.equals(u, "admin") && Objects.equals(v, "12345")){
                 new Dashboard().setVisible(true);
                 setVisible(false);
             } else {
+                // log into reception page
                 String q = "SELECT * FROM login WHERE username='"+u+"' AND password='"+v+"'";
 
                 ResultSet rs = c1.s.executeQuery(q);
@@ -146,9 +154,7 @@ public class Login extends JFrame implements ActionListener{
                     setVisible(false);
                 }
             }
-        }catch(Exception ignored){
-
-        }
+        }catch(Exception ignored){}
         }else if(action.getSource()==cancel){
             new HotelManagementSystem().setVisible(true);
             setVisible(false);

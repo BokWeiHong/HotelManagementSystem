@@ -5,12 +5,14 @@ package HotelManagementSystem;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AddCars extends JFrame implements ActionListener{
-    JPanel contentPane;
-    JTextField text1, text2, text3, text4, text5, text6;
-	JComboBox box1, box2;
-    JButton button1, button2;
+    private JPanel contentPane;
+    private JTextField text1, text2, text3, text4, text5, text6;
+    private JComboBox box1, box2;
+    JButton button1, button2, button3;
     Choice choice1;
 
     public static void main(String[] args) {
@@ -19,14 +21,10 @@ public class AddCars extends JFrame implements ActionListener{
 
     public AddCars() {
 		// setup GUI
-		super("BLKT2 Hotel Management System");
-		setSize(900,600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(null);
-		setLocationRelativeTo(null);
-
+        setBounds(450, 200, 900, 600);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 
 		// add label tag for text
@@ -87,12 +85,6 @@ public class AddCars extends JFrame implements ActionListener{
 		label7.setBounds(60, 400, 120, 22);
 		contentPane.add(label7);
 
-        JLabel label8 = new JLabel("Available");
-		label8.setForeground(new Color(25, 25, 112));
-		label8.setFont(new Font("sans serif", Font.BOLD, 14));
-		label8.setBounds(60, 440, 102, 22);
-		contentPane.add(label8);
-
 		// add text field to receive input
 		// input for name
 		text1 = new JTextField();
@@ -129,11 +121,6 @@ public class AddCars extends JFrame implements ActionListener{
 		text6.setBounds(200, 400, 250, 20);
 		contentPane.add(text6);
 
-		// input for available
-		box2 = new JComboBox(new String[] { "Yes", "No" });
-		box2.setBounds(200, 440, 140, 20);
-		contentPane.add(box2);
-
 		// add action button
 		button1 = new JButton("Add");
 		button1.addActionListener(this);
@@ -148,6 +135,34 @@ public class AddCars extends JFrame implements ActionListener{
 		button2.setBackground(Color.GRAY);
 		button2.setForeground(Color.WHITE);
 		contentPane.add(button2);
+
+		// Add the new button for managing cars
+		button3 = new JButton("Manage Car") {
+			@Override
+			protected void paintComponent(Graphics g) {
+				if (getModel().isPressed()) {
+					g.setColor(new Color(171, 201, 238, 200)); // Set the pressed color
+				} else {
+					g.setColor(new Color(214, 255, 246, 150)); // Set the normal color
+				}
+				g.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10); // Rounded rectangle
+				super.paintComponent(g);
+			}
+
+			@Override
+			protected void paintBorder(Graphics g) {
+				g.setColor(Color.WHITE); // Border color
+				g.drawRoundRect(1, 1, getWidth() - 2, getHeight() - 2, 10, 10); // Rounded rectangle border
+			}
+		};
+		button3.addActionListener(this);
+		button3.setBounds(710, 480, 130, 50);
+		button3.setForeground(Color.WHITE);
+		button3.setContentAreaFilled(false); // Make content area transparent
+		button3.setFocusPainted(false); // Remove focus border
+		button3.setBorderPainted(false); // Remove button border
+		button3.setOpaque(false); // Make opaque false to ensure transparency
+		contentPane.add(button3);
 
 		JPanel transparentPanel = new JPanel();
 		transparentPanel.setBounds(40, 50, 450, 480);
@@ -179,17 +194,35 @@ public class AddCars extends JFrame implements ActionListener{
                 String model  = text4.getText();
                 String plate = text5.getText();
                 String payrate = text6.getText();
-                String available =  (String) box2.getSelectedItem();
 
 				// input validation: not allow any null value to proceed
-				if (name.isEmpty() || age.isEmpty() || gender == null || contact.isEmpty() || model.isEmpty() || plate.isEmpty() || payrate.isEmpty() || available == null) {
-					JOptionPane.showMessageDialog(null, "Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
-					} else {
+				// 1. make sure no null values is accepted
+				if (name.isEmpty() || age.isEmpty() || gender == null || contact.isEmpty() || model.isEmpty() || plate.isEmpty() || payrate.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 2. make sure no car are repeatly registered (based on car plate number)
+				}else if (checkPlateValid(plate)){
+					JOptionPane.showMessageDialog(null, "The car '"  + plate + "' had registered in the system.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 3. make sure name is only alphabetical
+				}else if (!isAlphabetical(name)){
+					JOptionPane.showMessageDialog(null, "The name should be alphabetical only.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 4. make sure age is only numerical
+				}else if (isAlphabetical(age)){
+					JOptionPane.showMessageDialog(null, "The age should be numerical only.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 5. make sure contact is only numerical
+				}else if (isAlphabetical(contact)){
+					JOptionPane.showMessageDialog(null, "The contact number should be numerical only.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 6. make sure model is only alphabetical
+				}else if (!isAlphabetical(model)){
+					JOptionPane.showMessageDialog(null, "The model should be alphabetical only.", "Error", JOptionPane.ERROR_MESSAGE);
+				// 7. make sure pay rate is only numerical
+				}else if (isAlphabetical(payrate)){
+					JOptionPane.showMessageDialog(null, "The Pay rate should be numerical only.", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
 					// All fields are filled, proceed with SQL query
-					String str = "INSERT INTO car VALUES('" + name + "', '" + age + "', '" + gender + "', '" + contact + "', '" + model + "', '" + plate + "', '" + payrate + "', '" + available + "')";
+					String str = "INSERT INTO car(name, age, gender, contact, model, plate, payrate, available) VALUES('" + name + "', '" + age + "', '" + gender + "', '" + contact + "', '" + model + "', '" + plate + "', '" + payrate + "','Yes')";
 
 					c.s.executeUpdate(str);
-					JOptionPane.showMessageDialog(null, "Car Successfully Added");
+					JOptionPane.showMessageDialog(null, "Car Successfully Added!");
 					this.setVisible(false);
 				}
                 }catch(Exception ee){
@@ -199,9 +232,279 @@ public class AddCars extends JFrame implements ActionListener{
 			// Action button to exit current page
 			}else if(ae.getSource() == button2){
                 this.setVisible(false);
-            }
+
+			// Action button to go for manage car table
+            }else if(ae.getSource() == button3){
+				manageCars();
+			}
         }catch(Exception ignored){
             
         }
     }
+
+	public boolean checkPlateValid(String plate){
+		try {
+			conn c = new conn();
+			String query = "SELECT * FROM CAR WHERE PLATE = '" + plate + "'";
+			ResultSet rs = c.s.executeQuery(query);
+			return rs.next(); // Returns true if plate number exists, false otherwise
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // Return false in case of an exception
+		}
+	}
+
+	private static boolean isAlphabetical(String str) {
+		for (char c : str.toCharArray()) {
+			if (!Character.isLetter(c)) {
+				return false; // Non-alphabetical character found
+			}
+		}
+		return true; // All characters are alphabetical
+	}
+
+	private void manageCars() {
+		// Show options for managing cars (update or delete)
+		Object[] options = {"Update Car", "Delete Car", "Cancel"};
+		int choice = JOptionPane.showOptionDialog(this, "Choose an action:", "Manage Cars", JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+
+		switch (choice) {
+			case 0:
+				// Update car details
+				openUpdateCarDialog();
+				break;
+			case 1:
+				// Delete car
+				openDeleteCarDialog();
+				break;
+			default:
+				// Cancel
+				break;
+		}
+	}
+
+	public class CarDetails {
+		private String name;
+		private String age;
+		private String gender;
+		private String contact;
+		private String model;
+		private String plate;
+		private String payRate;
+
+		public CarDetails(String name, String age, String gender, String contact, String model, String plate, String payRate) {
+			this.name = name;
+			this.age = age;
+			this.gender = gender;
+			this.contact = contact;
+			this.model = model;
+			this.plate = plate;
+			this.payRate = payRate;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getAge() {
+			return age;
+		}
+
+		public String getGender() {
+			return gender;
+		}
+
+		public String getContact() {
+			return contact;
+		}
+
+		public String getModel() {
+			return model;
+		}
+
+		public String getPlate() {
+			return plate;
+		}
+
+		public String getPayRate() {
+			return payRate;
+		}
+	}
+
+	// Add this method in your AddCars class
+	private void openUpdateCarDialog() {
+		// Create a panel to get the plate number from the user
+		JPanel platePanel = new JPanel();
+		JTextField plateField = new JTextField(8);
+		platePanel.add(new JLabel("Enter Plate Number:"));
+		platePanel.add(plateField);
+
+		int plateResult = JOptionPane.showConfirmDialog(this, platePanel, "Enter Plate Number", JOptionPane.OK_CANCEL_OPTION);
+
+		// If the user clicks OK, proceed to get and display existing details
+		if (plateResult == JOptionPane.OK_OPTION) {
+			// Get the entered plate number
+			String plate = plateField.getText().trim();
+
+			// Validate that the plate is not empty
+			if (plate.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid plate number.", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			// Retrieve existing details for the specified plate from the database
+			CarDetails existingDetails = getCarDetails(plate);
+
+			// If existing details are found, display them for editing
+			if (existingDetails != null) {
+				// Create a panel to hold the input fields
+				JPanel panel = new JPanel(new GridLayout(8, 2));
+
+				// Add a label for the plate (non-editable)
+				panel.add(new JLabel("Plate Number:"));
+				JTextField plateFieldDisplay = new JTextField(existingDetails.getPlate());
+				plateFieldDisplay.setEditable(false);
+				panel.add(plateFieldDisplay);
+
+				// Add labels and text fields for each detail
+				panel.add(new JLabel("Name:"));
+				JTextField updatedNameField = new JTextField(existingDetails.getName());
+				panel.add(updatedNameField);
+
+				panel.add(new JLabel("Age:"));
+				JTextField updatedAgeField = new JTextField(existingDetails.getAge());
+				panel.add(updatedAgeField);
+
+				panel.add(new JLabel("Gender:"));
+				JComboBox<String> updatedGenderBox = new JComboBox<>(new String[]{"Male", "Female"});
+				updatedGenderBox.setSelectedItem(existingDetails.getGender());
+				panel.add(updatedGenderBox);
+
+				panel.add(new JLabel("Contact:"));
+				JTextField updatedContactField = new JTextField(existingDetails.getContact());
+				panel.add(updatedContactField);
+
+				panel.add(new JLabel("Model:"));
+				JTextField updatedModelField = new JTextField(existingDetails.getModel());
+				panel.add(updatedModelField);
+
+				panel.add(new JLabel("Pay Rate (per day):"));
+				JTextField updatedPayRateField = new JTextField(existingDetails.getPayRate());
+				panel.add(updatedPayRateField);
+
+				// Show the input dialog
+				int result = JOptionPane.showConfirmDialog(this, panel, "Update Car Details", JOptionPane.OK_CANCEL_OPTION);
+
+				// If the user clicks OK, process the updated details
+				if (result == JOptionPane.OK_OPTION) {
+					// Get the updated details
+					String updatedName = updatedNameField.getText();
+					String updatedAge = updatedAgeField.getText();
+					String updatedGender = (String) updatedGenderBox.getSelectedItem();
+					String updatedContact = updatedContactField.getText();
+					String updatedModel = updatedModelField.getText();
+					String updatedPayRate = updatedPayRateField.getText();
+
+					// Perform the update in the database
+					updateCarDetails(existingDetails.getPlate(), updatedName, updatedAge, updatedGender, updatedContact, updatedModel, updatedPayRate);
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Car with plate number '" + plate + "' not found.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	// Add this method in your AddCars class
+	private CarDetails getCarDetails(String plate) {
+		try {
+			// Perform the SQL query to retrieve car details
+			conn c = new conn();
+			String query = "SELECT * FROM car WHERE plate = '" + plate + "'";
+			ResultSet rs = c.s.executeQuery(query);
+
+			// If a record is found, create a CarDetails object and return it
+			if (rs.next()) {
+				return new CarDetails(
+						rs.getString("name"),
+						rs.getString("age"),
+						rs.getString("gender"),
+						rs.getString("contact"),
+						rs.getString("model"),
+						rs.getString("plate"),
+						rs.getString("payrate")
+				);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null; // Return null if no record is found
+	}
+
+	// Add this method in your AddCars class
+	private void updateCarDetails(String plate, String name, String age, String gender, String contact, String model, String payRate) {
+		try {
+			// Perform the SQL update query
+			conn c = new conn();
+			String updateQuery = "UPDATE car SET name = '" + name + "', age = '" + age + "', gender = '" + gender +
+					"', contact = '" + contact + "', model = '" + model + "', payrate = '" + payRate + "' WHERE plate = '" + plate + "'";
+			int rowsAffected = c.s.executeUpdate(updateQuery);
+
+			// Check if the update was successful
+			if (rowsAffected > 0) {
+				JOptionPane.showMessageDialog(this, "Car details updated successfully!");
+			} else {
+				JOptionPane.showMessageDialog(this, "Failed to update car details. Please check the input and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	private void openDeleteCarDialog() {
+		// Create a panel to get the plate number from the user
+		JPanel platePanel = new JPanel();
+		JTextField plateField = new JTextField(8);
+		platePanel.add(new JLabel("Enter Plate Number:"));
+		platePanel.add(plateField);
+
+		int plateResult = JOptionPane.showConfirmDialog(this, platePanel, "Enter Plate Number", JOptionPane.OK_CANCEL_OPTION);
+
+		// If the user clicks OK, proceed to get and display existing details
+		if (plateResult == JOptionPane.OK_OPTION) {
+			// Get the entered plate number
+			String plate = plateField.getText().trim();
+
+			// Validate that the plate is not empty
+			if (plate.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid plate number.", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			// Retrieve existing details for the specified plate from the database
+			CarDetails existingDetails = getCarDetails(plate);
+
+			// If existing details are found, display them for editing
+			if (existingDetails != null) {
+				// Display existing details before confirming deletion
+				String confirmationMessage = "Are you sure you want to delete the car with plate number '" + plate + "'?\n" + "This action is irreversible.";
+
+				int deleteConfirmation = JOptionPane.showConfirmDialog(this, confirmationMessage, "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+
+				if (deleteConfirmation == JOptionPane.YES_OPTION) {
+					// User confirmed deletion, perform the delete operation
+					try {
+						conn c = new conn();
+						String deleteQuery = "DELETE FROM car WHERE plate = '" + plate + "'";
+						c.s.executeUpdate(deleteQuery);
+						JOptionPane.showMessageDialog(this, "Car with plate number '" + plate + "' has been deleted successfully.");
+					} catch (SQLException e) {
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(this, "An error occurred while deleting the car.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Car with plate number '" + plate + "' not found.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
 }
+

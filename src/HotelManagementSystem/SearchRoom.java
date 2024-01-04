@@ -1,135 +1,167 @@
 package HotelManagementSystem;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
+
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import net.proteanit.sql.DbUtils;
 
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class SearchRoom extends JFrame {
-	Connection conn = null;
-	PreparedStatement pst = null;
-	ResultSet rs = null;
-	private JPanel contentPane;
-	private JTextField txt_Type;
-	private JTable table;
-	Choice c1;
+	ResultSet resultSet = null;
+	JPanel contentPane;
+	JTable roomTable;
+	JCheckBox checkBoxWifi;
+	JCheckBox checkBoxAirCondition;
+	Choice bedTypeChoice;
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SearchRoom frame = new SearchRoom();
-					frame.setVisible(true);
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+		EventQueue.invokeLater(() -> {
+			try {
+				SearchRoom frame = new SearchRoom();
+				frame.setVisible(true);
+			} catch (Exception ignored) {}
 		});
 	}
-	public void close() {
-		this.dispose();
-	}
 
-	public SearchRoom() throws SQLException {
-		//conn = Javaconnect.getDBConnection();
+	public SearchRoom() {
+		// Initialize database connection
+		// connection = JavaConnect.getDBConnection();
+		super("BLKT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(530, 200, 700, 500);
+		setSize(900,600);
+		setLocationRelativeTo(null);
+
+		setBounds(300, 150, 900, 600); // Adjusted display resolution
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
+		ImageIcon backgroundImg = new ImageIcon(ClassLoader.getSystemResource("icons/seventeen.jpg"));
+		Image img = backgroundImg.getImage();
+		Image tempImg = img.getScaledInstance(900, 300, Image.SCALE_SMOOTH);
+		backgroundImg = new ImageIcon(tempImg);
+		JLabel background = new JLabel(backgroundImg);
+		background.setBounds(0, 187, 900, 300);
+		contentPane.add(background);
+
+
 		JLabel lblSearchForRoom = new JLabel("Search For Room");
-		lblSearchForRoom.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSearchForRoom.setBounds(250, 11, 186, 31);
+		lblSearchForRoom.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		lblSearchForRoom.setBounds(350, 11, 200, 31);
 		contentPane.add(lblSearchForRoom);
-		
-		JLabel lblRoomAvailable = new JLabel("Room Bed Type:");
-		lblRoomAvailable.setBounds(50, 73, 96, 14);
-		contentPane.add(lblRoomAvailable);
-		
-		JLabel lblRoomType = new JLabel("Room Number");
-		lblRoomType.setBounds(23, 162, 96, 14);
-		contentPane.add(lblRoomType);
-		
-		JLabel lblRoomAvailable_1 = new JLabel("Availability");
-		lblRoomAvailable_1.setBounds(175, 162, 120, 14);
-		contentPane.add(lblRoomAvailable_1);
-		
-		JLabel lblPrice_1 = new JLabel("Price");
-		lblPrice_1.setBounds(458, 162, 46, 14);
-		contentPane.add(lblPrice_1);
-                
-		JLabel l1 = new JLabel("Bed Type");
-		l1.setBounds(580, 162, 96, 14);
-		contentPane.add(l1);
-		
-		JCheckBox checkRoom = new JCheckBox("Only display Available");
-		checkRoom.setBounds(400, 69, 205, 23);
-		checkRoom.setBackground(Color.WHITE);
-		contentPane.add(checkRoom);
-		
-		
-		c1 = new Choice();
-		c1.add("Single Bed");
-		c1.add("Double Bed");
-		c1.setBounds(153, 70, 120, 20);
-		contentPane.add(c1);
-		
+
+		JLabel lblRoomBedType = new JLabel("Room Bed Type:");
+		lblRoomBedType.setBounds(50, 73, 120, 14);
+		contentPane.add(lblRoomBedType);
+
+		JLabel lblRoomNumber = new JLabel("Room Number");
+		lblRoomNumber.setBounds(23, 162, 96, 14);
+		contentPane.add(lblRoomNumber);
+
+		JLabel lblAvailability = new JLabel("Availability");
+		lblAvailability.setBounds(160, 162, 96, 14);
+		contentPane.add(lblAvailability);
+
+		JLabel lblCleanStatus = new JLabel("Clean Status");
+		lblCleanStatus.setBounds(280, 162, 96, 14);
+		contentPane.add(lblCleanStatus);
+
+		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setBounds(430, 162, 46, 14);
+		contentPane.add(lblPrice);
+
+		JLabel lblBedType = new JLabel("Bed Type");
+		lblBedType.setBounds(550, 162, 96, 14);
+		contentPane.add(lblBedType);
+
+		JLabel lblWifi = new JLabel("WiFi");
+		lblWifi.setBounds(680, 162, 60, 14);
+		contentPane.add(lblWifi);
+
+		JLabel lblAirCondition = new JLabel("Air Condition");
+		lblAirCondition.setBounds(790, 162, 100, 14);
+		contentPane.add(lblAirCondition);
+
+		JCheckBox checkAvailable = new JCheckBox("Only display Available");
+		checkAvailable.setBounds(360, 69, 205, 23);
+		checkAvailable.setBackground(Color.WHITE);
+		contentPane.add(checkAvailable);
+
+		checkBoxWifi = new JCheckBox("Only Display WiFi");
+		checkBoxWifi.setBounds(560, 69, 150, 23);
+		checkBoxWifi.setBackground(Color.WHITE);
+		contentPane.add(checkBoxWifi);
+
+		checkBoxAirCondition = new JCheckBox("Only Display Air Condition");
+		checkBoxAirCondition.setBounds(710, 69, 200, 23);
+		checkBoxAirCondition.setBackground(Color.WHITE);
+		contentPane.add(checkBoxAirCondition);
+
+		bedTypeChoice = new Choice();
+		bedTypeChoice.add("Single Bed");
+		bedTypeChoice.add("Double Bed");
+		bedTypeChoice.add("Twin Room");
+		bedTypeChoice.add("Queen");
+		bedTypeChoice.add("King");
+		bedTypeChoice.setBounds(180, 70, 120, 20);
+		contentPane.add(bedTypeChoice);
+
 		JButton btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String SQL = "select * from Room where bed_type = '"+c1.getSelectedItem()+"'";
-				String SQL2 = "select * from Room where availability = 'Available' AND bed_type = '"+c1.getSelectedItem()+"'";
-			try{			
-				conn c = new conn();
-				rs = c.s.executeQuery(SQL);
-				table.setModel(DbUtils.resultSetToTableModel(rs));
-				
-				if(checkRoom.isSelected()) {
-					rs = c.s.executeQuery(SQL2);
-					table.setModel(DbUtils.resultSetToTableModel(rs));
-				}
-			}catch (SQLException ss) {
-				ss.printStackTrace();
-			}
-			
-			}
-		});
-		btnSearch.setBounds(200, 400, 120, 30);
+		btnSearch.addActionListener(e -> {
+            String sql = "select * from Room where bed_type = '"+bedTypeChoice.getSelectedItem()+"'";
+            String sqlAvailable = "select * from Room where availability = 'Available' AND bed_type = '"+bedTypeChoice.getSelectedItem()+"'";
+            try {
+                conn c = new conn();
+                if (checkBoxWifi.isSelected() && checkBoxAirCondition.isSelected()) {
+                    sql += " AND wifi='Yes' AND air_condition='Yes'";
+                    sqlAvailable += " AND wifi='Yes' AND air_condition='Yes'";
+                } else if (checkBoxWifi.isSelected()) {
+                    sql += " AND wifi='Yes'";
+                    sqlAvailable += " AND wifi='Yes'";
+                } else if (checkBoxAirCondition.isSelected()) {
+                    sql += " AND air_condition='Yes'";
+                    sqlAvailable += " AND air_condition='Yes'";
+                }
+
+                resultSet = c.s.executeQuery(sql);
+                roomTable.setModel(DbUtils.resultSetToTableModel(resultSet));
+
+                if(checkAvailable.isSelected()) {
+                    resultSet = c.s.executeQuery(sqlAvailable);
+                    roomTable.setModel(DbUtils.resultSetToTableModel(resultSet));
+                }
+
+
+            } catch (SQLException ss) {
+                ss.printStackTrace();
+            } finally {
+                // Close the resources (ResultSet, PreparedStatement, Connection) in a finally block
+                // Handle exceptions appropriately
+            }
+        });
+		btnSearch.setBounds(200, 500, 120, 30);
 		btnSearch.setBackground(Color.BLACK);
 		btnSearch.setForeground(Color.WHITE);
 		contentPane.add(btnSearch);
-		
-		JButton btnExit = new JButton("Back");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Reception().setVisible(true);
-				setVisible(false);
-			}
-		});
-		btnExit.setBounds(380, 400, 120, 30);
-		btnExit.setBackground(Color.BLACK);
-		btnExit.setForeground(Color.WHITE);
-		contentPane.add(btnExit);
-		
-		table = new JTable();
-		table.setBounds(0, 187, 700, 300);
-		contentPane.add(table);
-		
-		JLabel lblCleanStatus = new JLabel("Clean Status");
-		lblCleanStatus.setBounds(306, 162, 96, 14);
-		contentPane.add(lblCleanStatus);
-                
+
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(e -> {
+			setVisible(false);
+        });
+		btnBack.setBounds(380, 500, 120, 30);
+		btnBack.setBackground(Color.BLACK);
+		btnBack.setForeground(Color.WHITE);
+		contentPane.add(btnBack);
+
+		roomTable = new JTable();
+		roomTable.setBounds(0, 187, 900, 300);
+		contentPane.add(roomTable);
+
 		getContentPane().setBackground(Color.WHITE);
 	}
 }

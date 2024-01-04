@@ -1,28 +1,24 @@
 package HotelManagementSystem;
 
-import java.awt.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import net.proteanit.sql.DbUtils;
 
-import javax.swing.JTable;
-import java.sql.*;	
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+
 public class Room extends JFrame {
-	Connection conn = null;
-	private JPanel contentPane;
-	private JTable table;
-	private JLabel lblAvailability;
-	private JLabel lblCleanStatus;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblRoomNumber;
-	private JLabel lblId;
+	JPanel contentPane;
+	JTable table;
+	JLabel lblAvailability;
+	JLabel lblCleanStatus;
+	JLabel lblPrice;
+	JLabel lblBedType;
+	JLabel lblRoomNumber;
+	JLabel lblFreeWifi; // New label for Free Wifi
+	JLabel lblAirCondition; // New label for Air Condition
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,85 +26,93 @@ public class Room extends JFrame {
 				try {
 					Room frame = new Room();
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				} catch (Exception ignored) {}
 			}
 		});
 	}
 
-	public Room() throws SQLException {
-		//conn = Javaconnect.getDBConnection();
+	public Room() {
+		super("BLKT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(450, 200, 1100, 600);
+		setSize(900,600);
+		setLocationRelativeTo(null);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-                
-		ImageIcon i1  = new ImageIcon(ClassLoader.getSystemResource("icons/eight.jpg"));
-		Image i3 = i1.getImage().getScaledInstance(600, 600,Image.SCALE_DEFAULT);
-		ImageIcon i2 = new ImageIcon(i3);
-		JLabel l1 = new JLabel(i2);
-		l1.setBounds(500,0,600,600);
-		add(l1);
+		contentPane.setLayout(new BorderLayout());
+
+		// Add a related image
+		ImageIcon backgroundImage = new ImageIcon(ClassLoader.getSystemResource("icons/fifteen.jpg"));
+		Image scaledImage = backgroundImage.getImage().getScaledInstance(900, 200, Image.SCALE_DEFAULT);
+		ImageIcon backgroundIcon = new ImageIcon(scaledImage);
+		JLabel backgroundLabel = new JLabel(backgroundIcon);
+		contentPane.add(backgroundLabel, BorderLayout.NORTH);
 
 		table = new JTable();
-		table.setBounds(0, 40, 500, 400);
-		contentPane.add(table);
-		
-		JButton btnLoadData = new JButton("Load Data");
-		btnLoadData.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					conn c = new conn();
-					String displayCustomersql = "select * from Room";
-					ResultSet rs = c.s.executeQuery(displayCustomersql);
-					table.setModel(DbUtils.resultSetToTableModel(rs));
-				}catch(Exception e1){
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnLoadData.setBounds(100, 470, 120, 30);
-		btnLoadData.setBackground(Color.BLACK);
-		btnLoadData.setForeground(Color.WHITE);
-		contentPane.add(btnLoadData);
-		
-		JButton btnNewButton = new JButton("Back");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Reception().setVisible(true);
-				setVisible(false);
-			}
-		});
-		btnNewButton.setBounds(290, 470, 120, 30);
-		btnNewButton.setBackground(Color.BLACK);
-		btnNewButton.setForeground(Color.WHITE);
-		contentPane.add(btnNewButton);
-		
+		table.setOpaque(false);
+		contentPane.add(new JScrollPane(table), BorderLayout.CENTER);
+
+		JPanel labelPanel = new JPanel();
+		labelPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+		lblRoomNumber = new JLabel("Room Number");
+		labelPanel.add(lblRoomNumber);
+
 		lblAvailability = new JLabel("Availability");
-		lblAvailability.setBounds(119, 15, 69, 14);
-		contentPane.add(lblAvailability);
-		
+		labelPanel.add(lblAvailability);
+
 		lblCleanStatus = new JLabel("Clean Status");
-		lblCleanStatus.setBounds(216, 15, 76, 14);
-		contentPane.add(lblCleanStatus);
-		
-		lblNewLabel = new JLabel("Price");
-		lblNewLabel.setBounds(330, 15, 46, 14);
-		contentPane.add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Bed Type");
-		lblNewLabel_1.setBounds(417, 15, 76, 14);
-		contentPane.add(lblNewLabel_1);
+		labelPanel.add(lblCleanStatus);
 
-		
-		lblId = new JLabel("Room Number");
-		lblId.setBounds(12, 15, 90, 14);
-		contentPane.add(lblId);
-                
+		lblPrice = new JLabel("Price");
+		labelPanel.add(lblPrice);
+
+		lblBedType = new JLabel("Bed Type");
+		labelPanel.add(lblBedType);
+
+		lblFreeWifi = new JLabel("Free Wifi");
+		labelPanel.add(lblFreeWifi);
+
+		lblAirCondition = new JLabel("Air Condition");
+		labelPanel.add(lblAirCondition);
+
+		contentPane.add(labelPanel, BorderLayout.SOUTH);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+		JButton btnLoadData = new JButton("Load Data");
+		btnLoadData.addActionListener(e -> {
+            try {
+                // Use a meaningful variable name
+                conn c = new conn();
+
+                String displayRoomSql = "select * from Room";
+                ResultSet rs = c.s.executeQuery(displayRoomSql);
+                table.setModel(DbUtils.resultSetToTableModel(rs));
+            } catch (Exception ignored) {}
+        });
+		buttonPanel.add(btnLoadData);
+
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(e -> {
+            setVisible(false);
+        });
+		buttonPanel.add(btnBack);
+
+		contentPane.add(buttonPanel, BorderLayout.SOUTH);
+
 		getContentPane().setBackground(Color.WHITE);
-	}
 
+		// Set a default font type
+		Font defaultFont = new Font("SansSerif", Font.PLAIN, 12);
+		lblRoomNumber.setFont(defaultFont);
+		lblAvailability.setFont(defaultFont);
+		lblCleanStatus.setFont(defaultFont);
+		lblPrice.setFont(defaultFont);
+		lblBedType.setFont(defaultFont);
+		lblFreeWifi.setFont(defaultFont);
+		lblAirCondition.setFont(defaultFont);
+	}
 }

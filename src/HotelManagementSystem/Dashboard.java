@@ -9,8 +9,8 @@ public class Dashboard extends JFrame{
 
     JLabel layout1, layout2, layout3;
     JLabel label, info, EmpCount, CarCount, RoomCount, CustomerCount;
-    JLabel title, controlpanel, logout, addemp, addcar, addroom;
-    JButton ControlPanel, refresh, LogOut, AddEmp, AddCar, AddRoom, buttonEmployee, buttonRoom, buttonCustomer, buttonCar;
+    JLabel title, controlpanel, logout, addemp, addcar, addroom, department, review, managerinfo;
+    JButton ControlPanel, refresh, LogOut, AddEmp, AddCar, AddRoom, Department, Review, ManagerInfo, buttonEmployee, buttonRoom, buttonCustomer, buttonCar;
     Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
     public Dashboard() {
         super("BLKT2 Hotel Management System");
@@ -37,6 +37,12 @@ public class Dashboard extends JFrame{
         buttonEmployee.setCursor(customCursor);
         buttonEmployee.setBorder(null);
         layout1.add(buttonEmployee);
+
+        buttonEmployee.addActionListener(ae -> {
+            try{
+                new EmployeeAdmin().setVisible(true);
+            }catch(Exception ignored){}
+        });
 
         info = new JLabel("Click to view more info");
         info.setForeground(Color.WHITE);
@@ -72,6 +78,12 @@ public class Dashboard extends JFrame{
         buttonRoom.setBorder(null);
         layout1.add(buttonRoom);
 
+        buttonRoom.addActionListener(ae -> {
+            try{
+                new Room().setVisible(true);
+            }catch(Exception ignored){}
+        });
+
         info = new JLabel("Click to view more info");
         info.setForeground(Color.WHITE);
         info.setBackground(new Color(0, 74, 183));
@@ -106,6 +118,12 @@ public class Dashboard extends JFrame{
         buttonCustomer.setBorder(null);
         layout1.add(buttonCustomer);
 
+        buttonCustomer.addActionListener(ae -> {
+            try{
+                new CustomerInfo().setVisible(true);
+            }catch(Exception ignored){}
+        });
+
         info = new JLabel("Click to view more info");
         info.setForeground(Color.WHITE);
         info.setBackground(new Color(231, 101, 0));
@@ -139,6 +157,12 @@ public class Dashboard extends JFrame{
         buttonCar.setCursor(customCursor);
         buttonCar.setBorder(null);
         layout1.add(buttonCar);
+
+        buttonCar.addActionListener(ae -> {
+            try{
+                new RentalCar().setVisible(true);
+            }catch(Exception ignored){}
+        });
 
         info = new JLabel("Click to view more info");
         info.setForeground(Color.WHITE);
@@ -350,6 +374,102 @@ public class Dashboard extends JFrame{
         AddRoom.addActionListener(ae -> {
             try{
                 new AddRoom().setVisible(true);
+            }catch(Exception ignored){}
+        });
+
+        Department = new JButton("");
+        Department.setBackground(new Color(54, 54, 54));
+        Department.setBorder(null);
+        Department.setLayout(null);
+        Department.setCursor(customCursor);
+        Department.setBounds(0, 200, 200, 50);
+        layout3.add(Department);
+
+        department = new JLabel("Department");
+        department.setForeground(Color.WHITE);
+        department.setFont(new Font("SansSerif", Font.BOLD, 13));
+        department.setBounds(30, 0, 200, 50);
+        Department.add(department);
+
+        Department.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Department.setBackground(new Color(94, 94, 94));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Department.setBackground(new Color(54, 54, 54));
+            }
+        });
+
+        Department.addActionListener(ae -> {
+            try{
+                new Department().setVisible(true);
+            }catch(Exception ignored){}
+        });
+
+        Review = new JButton("");
+        Review.setBackground(new Color(54, 54, 54));
+        Review.setBorder(null);
+        Review.setLayout(null);
+        Review.setCursor(customCursor);
+        Review.setBounds(0, 250, 200, 50);
+        layout3.add(Review);
+
+        review = new JLabel("Review Info");
+        review.setForeground(Color.WHITE);
+        review.setFont(new Font("SansSerif", Font.BOLD, 13));
+        review.setBounds(30, 0, 200, 50);
+        Review.add(review);
+
+        Review.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Review.setBackground(new Color(94, 94, 94));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Review.setBackground(new Color(54, 54, 54));
+            }
+        });
+
+        Review.addActionListener(ae -> {
+            try{
+                new ReviewInfo().setVisible(true);
+            }catch(Exception ignored){}
+        });
+
+        ManagerInfo = new JButton("");
+        ManagerInfo.setBackground(new Color(54, 54, 54));
+        ManagerInfo.setBorder(null);
+        ManagerInfo.setLayout(null);
+        ManagerInfo.setCursor(customCursor);
+        ManagerInfo.setBounds(0, 300, 200, 50);
+        layout3.add(ManagerInfo);
+
+        managerinfo = new JLabel("Manager Info");
+        managerinfo.setForeground(Color.WHITE);
+        managerinfo.setFont(new Font("SansSerif", Font.BOLD, 13));
+        managerinfo.setBounds(30, 0, 200, 50);
+        ManagerInfo.add(managerinfo);
+
+        ManagerInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                ManagerInfo.setBackground(new Color(94, 94, 94));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                ManagerInfo.setBackground(new Color(54, 54, 54));
+            }
+        });
+
+        ManagerInfo.addActionListener(ae -> {
+            try{
+                new ManagerInfoAdmin().setVisible(true);
             }catch(Exception ignored){}
         });
 
