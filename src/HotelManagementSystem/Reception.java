@@ -306,35 +306,13 @@ public class Reception extends JFrame {
 		car.setBounds(450, 80, 300, 30);
 		background.add(car);
 
-		CarInfo = new JButton("");
-		CarInfo.setBackground(new Color(0, 0, 0, 0));
-		CarInfo.setCursor(customCursor);
-		CarInfo.setBorder(new LineBorder(Color.WHITE, 2));
-		CarInfo.setOpaque(false);
-		CarInfo.setLayout(null);
-		CarInfo.setBounds(450, 120, 90, 40);
-		background.add(CarInfo);
-
-		CarInfo.addActionListener(ae -> {
-            try{
-                new SearchRoom().setVisible(true);
-
-            }catch(Exception ignored){}
-        });
-
-		carinfo = new JLabel("Car Info");
-		carinfo.setForeground(Color.WHITE);
-		carinfo.setFont(new Font("SansSerif", Font.BOLD, 12));
-		carinfo.setBounds(20, 8, 300, 25);
-		CarInfo.add(carinfo);
-
 		PickUp = new JButton("");
 		PickUp.setBackground(new Color(0, 0, 0, 0));
 		PickUp.setCursor(customCursor);
 		PickUp.setBorder(new LineBorder(Color.WHITE, 2));
 		PickUp.setOpaque(false);
 		PickUp.setLayout(null);
-		PickUp.setBounds(560, 120, 90, 40);
+		PickUp.setBounds(450, 120, 90, 40);
 		background.add(PickUp);
 
 		PickUp.addActionListener(ae -> {
