@@ -89,7 +89,7 @@ ALTER TABLE CUSTOMER
 ADD CONSTRAINT fk_room
 FOREIGN KEY (room) REFERENCES ROOM(roomnumber);
 
-INSERT INTO customer VALUES ('Voter ID', '402', 'MARY JONES', 'Female', 'UK', '109', '06/02/2024', '100')
+INSERT INTO customer VALUES ('Voter ID', '402', 'MARY JONES', 'Female', 'UK', '109', '06/02/2024', '100');
 
 -- Table car
 create table car(	
