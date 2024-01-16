@@ -4,7 +4,7 @@ show databases;
 
 use hotelmanagementsystem;
 
-// Table login
+-- Table login
 CREATE TABLE login(
    username VARCHAR(25) NOT NULL,
    password VARCHAR(25) NOT NULL
@@ -17,7 +17,7 @@ INSERT INTO login VALUES('reception04', '12345');
 INSERT INTO login VALUES('reception05', '12345');
 INSERT INTO login VALUES('reception06', '12345');
 
-// Table employee
+-- Table employee
 create table employee(
    name varchar(40), 
    ic varchar(12), 
@@ -46,7 +46,7 @@ INSERT INTO employee VALUES ('EMMA JONES', '860303030303', '38', '0173344556', '
 INSERT INTO employee VALUES ('DAVID SMITH', '790404040404', '45', '0194455667', 'Male', 'david.smith@example.com', '1010 Oak St', 'Manager', '6400');
 INSERT INTO employee VALUES ('FARIDA ALI', '910505050505', '33', '0165566778', 'Female', 'farida.ali@example.com', '1111 Maple St', 'Manager', '5900');
 
-// Table room
+-- Table room
 create table room(
    roomnumber varchar(10), 
    availability varchar(20), 
@@ -70,7 +70,7 @@ INSERT INTO room VALUES
 ('109', 'Occupied', 'Not Cleaned', '320', 'Queen', 'Yes', 'No'),
 ('110', 'Available', 'Cleaned', '350', 'King', 'Yes', 'Yes');
 
-// Table customer
+-- Table customer
 create table customer(
 	document varchar(20) NOT NULL, 
 	number varchar(30) NOT NULL, 
@@ -89,7 +89,7 @@ ALTER TABLE CUSTOMER
 ADD CONSTRAINT fk_room
 FOREIGN KEY (room) REFERENCES ROOM(roomnumber);
 
-// Table car
+-- Table car
 create table car(	
    name varchar(20),
    age varchar(20),
@@ -120,7 +120,7 @@ insert into car(name, age, gender, contact, model, plate, payrate, available) va
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kevin', '30', 'Male', '0123648549', 'Toyota', 'VWX5678', '210', 'Yes');
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kim', '27', 'Female', '0102356744', 'Nissan', 'YZA1234', '190', 'Yes');
 
-// Table department
+-- Table department
 CREATE TABLE department(
    department varchar(30), 
    budget varchar(30)
@@ -132,7 +132,7 @@ insert into department values('Food and Beverage', '23000');
 insert into department values('Kitchen or Food Production', '540000');
 insert into department values('Security', '320000');
 
-// Table review
+-- Table review
 CREATE TABLE review (
     reviewID INT AUTO_INCREMENT,
     customer_number VARCHAR(10),
