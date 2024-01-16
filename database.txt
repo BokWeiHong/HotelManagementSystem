@@ -79,7 +79,7 @@ create table customer(
 	country varchar(20) NOT NULL, 
 	room varchar(10) NOT NULL, 
 	checkintime varchar(80) NOT NULL, 
-	deposit varchar(20) NOT NULL,
+	deposit varchar(20) NOT NULL
 );
 
 alter table customer
@@ -139,7 +139,7 @@ CREATE TABLE review (
     room_number VARCHAR(10),
     rating INTEGER,
     comment VARCHAR(200),
-    PRIMARY KEY (reviewID),
+    PRIMARY KEY (reviewID)
 ) AUTO_INCREMENT = 100;     
 
 INSERT INTO review (room_number, customer_number, rating, comment)
