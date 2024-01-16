@@ -49,7 +49,7 @@ public class CheckOut extends JFrame{
 
 	// CheckOut MAIN FUNCTION
 	public CheckOut() throws SQLException {
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		// Window Dimension

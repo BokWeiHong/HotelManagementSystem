@@ -13,7 +13,7 @@ public class Dashboard extends JFrame{
     JButton ControlPanel, refresh, LogOut, AddEmp, AddCar, AddRoom, Department, Review, ManagerInfo, buttonEmployee, buttonRoom, buttonCustomer, buttonCar;
     Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
     public Dashboard() {
-        super("BLKT2 Hotel Management System");
+        super("BKLT2 Hotel Management System");
         setSize(900,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);

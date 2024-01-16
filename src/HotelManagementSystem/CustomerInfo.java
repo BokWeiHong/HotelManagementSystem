@@ -50,7 +50,7 @@ public class CustomerInfo extends JFrame {
 
 	public CustomerInfo() throws SQLException {
 		//conn = Javaconnect.getDBConnection();
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(1100, 660); // DIMENSION OF WINDOW

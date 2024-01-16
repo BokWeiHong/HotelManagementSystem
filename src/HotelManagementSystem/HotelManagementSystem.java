@@ -11,7 +11,7 @@ public class HotelManagementSystem extends JFrame implements ActionListener{
         Cursor customCursor = Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
 
         public HotelManagementSystem() {
-                super("BLKT2 Hotel Management System");
+                super("BKLT2 Hotel Management System");
                 setSize(900,600);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setLayout(null);
@@ -24,7 +24,7 @@ public class HotelManagementSystem extends JFrame implements ActionListener{
                 label1 = new JLabel(image);
 
                 // add text
-                JLabel text1 = new JLabel("BLKT2 HOTEL MANAGEMENT SYSTEM");
+                JLabel text1 = new JLabel("BKLT2 HOTEL MANAGEMENT SYSTEM");
                 text1.setBounds(30,200,1500,100);
                 text1.setFont(new Font("SansSerif",Font.BOLD,30));
                 text1.setForeground(Color.WHITE);

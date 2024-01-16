@@ -21,7 +21,9 @@ public class AddCars extends JFrame implements ActionListener{
 
     public AddCars() {
 		// setup GUI
-        setBounds(450, 200, 900, 600);
+		super("BKLT2 Hotel Management System");
+		setSize(900,600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);

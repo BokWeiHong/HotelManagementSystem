@@ -24,11 +24,12 @@ public class Department extends JFrame {
 
 	public Department() {
 		// setup the GUI
+		super("BKLT2 Hotel Management System");
+		setSize(900,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(600, 200, 900, 600);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 

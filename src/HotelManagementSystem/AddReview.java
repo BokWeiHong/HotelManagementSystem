@@ -18,7 +18,7 @@ public class AddReview extends JFrame implements ActionListener{
     CompoundBorder border = new CompoundBorder(line, empty);
     AddReview() {
         // set title, default layout, size and application location
-        super("BLKT2 Hotel Management System");
+        super("BKLT2 Hotel Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(900, 600);

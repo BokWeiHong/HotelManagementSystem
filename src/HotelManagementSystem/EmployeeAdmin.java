@@ -40,7 +40,7 @@ public class EmployeeAdmin extends JFrame {
 	// Constructor for the Employee class
 	public EmployeeAdmin() {
 		// Set frame properties
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setSize(900,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);

@@ -24,7 +24,7 @@ public class UpdateRoom extends JFrame {
 	}
 
 	public UpdateRoom() {
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(900, 600);  // Adjusted size for display resolution
 		setLocationRelativeTo(null);  // Center the frame on the screen

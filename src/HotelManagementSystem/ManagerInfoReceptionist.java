@@ -43,7 +43,7 @@ public class ManagerInfoReceptionist extends JFrame {
 	// Constructor for the ManagerInfo class
 	public ManagerInfoReceptionist() {
 		// Set frame properties
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setSize(900,600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);

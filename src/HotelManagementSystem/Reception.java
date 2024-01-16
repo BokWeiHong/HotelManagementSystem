@@ -17,7 +17,7 @@ public class Reception extends JFrame {
 	
 	public Reception(){
 		// set title, default layout, size and application location
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(900,600);

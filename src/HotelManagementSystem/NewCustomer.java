@@ -50,7 +50,7 @@ public class NewCustomer extends JFrame {
 
 	public NewCustomer() {
 		//	Beginning of the background image
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(850, 630);

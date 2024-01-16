@@ -16,7 +16,7 @@ public class AddRoom extends JFrame implements ActionListener {
     }
 
     public AddRoom() {
-        super("BLKT2 Hotel Management System");
+        super("BKLT2 Hotel Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900,600);
         setLocationRelativeTo(null);

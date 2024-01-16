@@ -34,7 +34,7 @@ public class UpdateCheck extends JFrame {
 	}
 
 	public UpdateCheck() {
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		// Window Dimension

@@ -32,7 +32,7 @@ public class Room extends JFrame {
 	}
 
 	public Room() {
-		super("BLKT2 Hotel Management System");
+		super("BKLT2 Hotel Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(900,600);
 		setLocationRelativeTo(null);
