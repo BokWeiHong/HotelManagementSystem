@@ -4,8 +4,8 @@ show databases;
 
 use hotelmanagementsystem;
 
-// Table system_user
-CREATE TABLE system_user(
+// Table login
+CREATE TABLE login(
    username VARCHAR(25) NOT NULL,
    password VARCHAR(25) NOT NULL
 );
