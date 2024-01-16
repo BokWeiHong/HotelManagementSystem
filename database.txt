@@ -89,6 +89,8 @@ ALTER TABLE CUSTOMER
 ADD CONSTRAINT fk_room
 FOREIGN KEY (room) REFERENCES ROOM(roomnumber);
 
+INSERT INTO customer VALUES ('Voter ID', '402', 'MARY JONES', 'Female', 'UK', '109', '06/02/2024', '100')
+
 -- Table car
 create table car(	
    name varchar(20),
@@ -119,6 +121,10 @@ insert into car(name, age, gender, contact, model, plate, payrate, available) va
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Jill', '26', 'Female', '0143652189', 'Ford', 'STU1234', '180', 'Yes');
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kevin', '30', 'Male', '0123648549', 'Toyota', 'VWX5678', '210', 'Yes');
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kim', '27', 'Female', '0102356744', 'Nissan', 'YZA1234', '190', 'Yes');
+insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('William','32','Male', '0134567890', 'Chevrolet','JKL012','250','No','402','2023-12-02','2023-12-08');
+-- insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('Ava','28','Female', '0178901234', 'Toyota','PQR345','220','No','789','2024-01-02','2024-01-08');
+-- insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('Ethan','45','Male', '0156789012', 'Honda','STU678','180','No','123','2024-01-15','2024-01-20');
+-- insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('Mia','26','Female', '0145678901', 'Ford','VWX901','200','No','456','2024-01-15','2024-01-18');
 
 -- Table department
 CREATE TABLE department(
