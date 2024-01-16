@@ -89,10 +89,6 @@ ALTER TABLE CUSTOMER
 ADD CONSTRAINT fk_room
 FOREIGN KEY (room) REFERENCES ROOM(roomnumber);
 
-insert into table customer values (
-
-)
-
 // Table car
 create table car(	
    name varchar(20),
