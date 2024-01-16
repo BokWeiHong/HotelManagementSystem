@@ -119,10 +119,6 @@ insert into car(name, age, gender, contact, model, plate, payrate, available) va
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Jill', '26', 'Female', '0143652189', 'Ford', 'STU1234', '180', 'Yes');
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kevin', '30', 'Male', '0123648549', 'Toyota', 'VWX5678', '210', 'Yes');
 insert into car(name, age, gender, contact, model, plate, payrate, available) values ('Kim', '27', 'Female', '0102356744', 'Nissan', 'YZA1234', '190', 'Yes');
-insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('Sofia','22','Female', '0127549988','Toyota','PHC1256','220','No','0303120110987','2023-12-31','2024-01-04');
-insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('John','30','Male', '0123456789', 'Honda','ABC123','180','No','456123','2024-01-01','2024-01-02');
-insert into car(name, age, gender, contact, model, plate, payrate, available, cus_number, rent_start_date, rent_end_date) values ('Emily','28','Female', '0112345678', 'Ford','XYZ789','200','No','402','2024-01-20','2024-01-28');
-
 
 // Table department
 CREATE TABLE department(
